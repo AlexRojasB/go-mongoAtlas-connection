@@ -14,4 +14,4 @@ type User struct {
 	UpdatedAt time.Time          `bson:"updated_at,omitempty" json:"updated_at,omitempty"`
 }
 
-type Users []User
+type Users []*User
