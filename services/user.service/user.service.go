@@ -1,20 +1,23 @@
 package user_service
+
 import (
-	m "../../models"
-	userRepository "../../repositories/user.repository"
+	m "github.com/AlexRojasB/go-mongoAtlas-connection.git/models"
+
+	userRepository "github.com/AlexRojasB/go-mongoAtlas-connection.git/repositories/user.repository"
 )
+
 func Create(user m.User) error {
 	err := userRepository.Create(user)
-	if err := nil {
+	if err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func Read()(m.Users, error){
+func Read() (m.Users, error) {
 	users, err := userRepository.Read()
-	if err := nil {
+	if err != nil {
 		return nil, err
 	}
 
@@ -23,7 +26,7 @@ func Read()(m.Users, error){
 
 func Update(user m.User, userId string) error {
 	err := userRepository.Update(user, userId)
-	if err := nil {
+	if err != nil {
 		return err
 	}
 	return nil
@@ -31,8 +34,8 @@ func Update(user m.User, userId string) error {
 
 func Delete(userId string) error {
 	err := userRepository.Delete(userId)
-	if err := nil {
-		return  err
+	if err != nil {
+		return err
 	}
 	return nil
 }

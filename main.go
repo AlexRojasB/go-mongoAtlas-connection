@@ -1,27 +1,24 @@
 package main
+
 import (
-	"log"
-	"context"
 	"time"
-	"fmt"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/bson"
+
+	m "github.com/AlexRojasB/go-mongoAtlas-connection.git/models"
+	userService "github.com/AlexRojasB/go-mongoAtlas-connection.git/repositories/user.repository"
 )
+
 func main() {
-	clientOptions := options.Client().ApplyURI("mongodb+srv://seke:upsi1234@cluster0.zbbel.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	client, err := mongo.Connect(ctx, clientOptions)
-	if err != nil {
-    	log.Fatal(err)
+	user := m.User{
+		Name:      "Alexander",
+		Email:     "alexrrojas.b@gmail.com",
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
-	databases, err := client.ListDatabaseNames(ctx, bson.D{})
+	err := userService.Create(user)
+
 	if err != nil {
-    	log.Fatal(err)
+
+	} else {
+
 	}
-	fmt.Println(databases)
 }
-
-
-

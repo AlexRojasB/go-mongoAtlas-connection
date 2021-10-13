@@ -1,10 +1,24 @@
 package user_repository
+
 import (
-	m "../../models"
+	"context"
+
+	"github.com/AlexRojasB/go-mongoAtlas-connection.git/database"
+	m "github.com/AlexRojasB/go-mongoAtlas-connection.git/models"
 )
+
+var collection = database.GetCollection("users")
+var ctx = context.Background()
 
 func Create(user m.User) error {
 
+	var err error
+
+	_, err = collection.InsertOne(ctx, user)
+
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
