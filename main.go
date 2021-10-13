@@ -1,24 +1,31 @@
 package main
 
 import (
-	"time"
+	"fmt"
+	"log"
+	"net/http"
 
 	m "github.com/AlexRojasB/go-mongoAtlas-connection.git/models"
 	userService "github.com/AlexRojasB/go-mongoAtlas-connection.git/repositories/user.repository"
 )
 
-func main() {
+func homePage(w http.ResponseWriter, r *http.Request) {
 	user := m.User{
-		Name:      "Alexander",
-		Email:     "alexrrojas.b@gmail.com",
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		Name:  "Alejandrina",
+		Email: "alejandrinamirandagarcia@gmail.com",
 	}
 	err := userService.Create(user)
-
 	if err != nil {
-
-	} else {
-
+		log.Fatal(err)
 	}
+}
+
+func handleRequests() {
+	http.HandleFunc("/", homePage)
+	log.Fatal(http.ListenAndServe(":9001", nil))
+}
+
+func main() {
+	fmt.Println("API Started")
+	handleRequests()
 }
