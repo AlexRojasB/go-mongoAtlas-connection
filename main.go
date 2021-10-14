@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	h "github.com/AlexRojasB/go-mongoAtlas-connection.git/handlers"
+	middleware "github.com/AlexRojasB/go-mongoAtlas-connection.git/middleware"
 	m "github.com/AlexRojasB/go-mongoAtlas-connection.git/models"
 	userService "github.com/AlexRojasB/go-mongoAtlas-connection.git/repositories/user.repository"
 )
@@ -21,7 +23,9 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRequests() {
-	http.HandleFunc("/", homePage)
+	http.HandleFunc("/login", h.Login)
+	http.HandleFunc("/refresh", h.Refresh)
+	http.Handle("/home", middleware.IsAuthorized(h.Home))
 	log.Fatal(http.ListenAndServe(":9001", nil))
 }
 
